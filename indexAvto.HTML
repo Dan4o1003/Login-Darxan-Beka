@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "avto.css">
+</head>
+<body>
+    <div class = "fon">
+        <div class = "auto">
+            <div class = "txtram">
+                <div class = "txt">АВТОРИЗАЦИЯ</div>
+            </div>
+        </div>
+        <div class = "ram">
+            <p class = "entrance">ВХОД</p>
+            <input class = "input1" placeholder="Телефон / email"/>
+            <input class = "input2" placeholder="Введите пароль"/>
+            <input class = "input3" placeholder="Введите пароль повторно"/>
+            <button id = "txt" class = "button">ВОЙТИ</button>
+            <p class="text1">Вы успешно зарегистрировались!</p>
+            <div id="txt" class="txtnone active" >
+            </div>
+        </div>
+    </div>
+    <script>
+        var bt1 = document.getElementById("txt")
+
+        var tx1 = document.getElementById("txt")
+
+        function reser(){
+            tx1.classList.remove("active")
+        }
+
+        bt1.addEventListener("click", function(){
+            reser();
+            tx1.classList.add("active")
+        })
+    </script>
+</body>
+</html>
