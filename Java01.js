@@ -1,70 +1,59 @@
-const login = document.getElementById("login")
-const password = document.getElementById("password")
-const passwordPovtor = document.getElementById("passwordPovtor")
+const form = document.getElementById("form");
+const login = document.getElementById("login");
+const password = document.getElementById("password");
+const passwordPovtor = document.getElementById("passwordPovtor");
+const TextVxod = document.getElementById("TextVxod");
+
+const emailError = document.getElementById("emailError");
+const passwordError = document.getElementById("passwordError");
+const password2Error = document.getElementById("password2Error");
 
 const loginRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRe = /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.[A-Z])[0-9a-zA-Z!@#$%^&]{6,}$/;
+const passwordRe = /^(?=.*\d)(?=.*[!@#$%^&])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&]{6,}$/;
 
-
-function clearError() {
-    login_2.textContent = "";
-    password_2.textContent = "";
-    password_2re.textContent = "";
-}
-
-function validate({ login, password, password_2 }) {
-    const login = data.login;
-    const password = data.password;
-    const password_2 = data.password_2;
+function validate(data) {
     let ok = true;
-    if (!login) {
-        login.textContent = "Введите Email"
+
+    emailError.textContent = "";
+    passwordError.textContent = "";
+    password2Error.textContent = "";
+
+    if (!data.email) {
+        emailError.textContent = "Введите Email";
         ok = false;
-    } else if (!passwordRe.test(login)) {
-        login.textContent = "Email не правильный"
-        ok = false
+    } else if (!loginRe.test(data.email)) {
+        emailError.textContent = "Email неправильный";
+        ok = false;
     }
 
-    if (!password) {
-        passwordErr.textContent = "Введите Пароль";
+    if (!data.password) {
+        passwordError.textContent = "Введите пароль";
         ok = false;
-    } else if (!passwordErr.test(password)) {
-        passwordErr.textContent = "Пароль слишком слабый";
+    } else if (!passwordRe.test(data.password)) {
+        passwordError.textContent = "Пароль слишком слабый";
         ok = false;
     }
-    return ok
+
+    if (data.password !== data.password2) {
+        password2Error.textContent = "Пароли не совпадают";
+        ok = false;
+    }
+
+    return ok;
 }
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault()
-    clearError();
-    const fd = new FormData(form)
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
     const data = {
-        email: String(fd.get("email") || "").trim(),
-        password: String(fd.get("password") || "").trim(),
+        email: login.value.trim(),
+        password: password.value.trim(),
+        password2: passwordPovtor.value.trim()
+    };
+
+    if (validate(data)) {
+        TextVxod.textContent = "Вы успешно зарегистрировались!";
+    } else {
+        TextVxod.textContent = "";
     }
-
-    if (!validate(data)) return
-})
-
-
-
-
-
-
-
-
-
-// <!-- <script>
-//     var bt1 = document.getElementById("txt")
-
-//     var tx1 = document.getElementById("txt")
-
-//     function reser(){
-//         tx1.classList.remove("active")
-//     }
-
-//     bt1.addEventListener("click", function(){
-//         reser();
-//         tx1.classList.add("active")
-//     }) -->
+});
